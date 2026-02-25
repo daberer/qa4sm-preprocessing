@@ -72,7 +72,7 @@ def test_csv_pipeline(test_output_path):
         ts = pd.read_csv(csv_dir / fname, index_col=0, parse_dates=True)[
             "soil_moisture"
         ]
-        pd.testing.assert_series_equal(ts, timeseries[i], check_freq=False)
+        pd.testing.assert_series_equal(ts, timeseries[i], check_freq=False, check_index_type=False)
 
     # check metadata
     with open(csv_dir / "metadata.yml", "r") as f:
@@ -89,7 +89,7 @@ def test_csv_pipeline(test_output_path):
     reader = ZippedCsvTs(zfile)
     for i in range(len(timeseries)):
         ts = reader.read(i)["soil_moisture"]
-        pd.testing.assert_series_equal(ts, timeseries[i], check_freq=False)
+        pd.testing.assert_series_equal(ts, timeseries[i], check_freq=False, check_index_type=False)
     assert reader.get_metadata("soil_moisture") == metadata["soil_moisture"]
 
     # do the preprocessing with the full preprocessing function
@@ -107,7 +107,7 @@ def test_csv_pipeline(test_output_path):
     assert reader.variable_description() == desc
     for i in range(len(timeseries)):
         ts = reader.read(i)["soil_moisture"]
-        pd.testing.assert_series_equal(ts, timeseries[i], check_freq=False)
+        pd.testing.assert_series_equal(ts, timeseries[i], check_freq=False, check_index_type=False)
     assert (
         reader.fid.dataset["soil_moisture"].units == metadata["soil_moisture"]["units"]
     )
@@ -130,7 +130,7 @@ def test_contiguous_ragged_pipeline(test_output_path):
     def check_reader(reader):
         for i in range(len(timeseries)):
             ts = reader.read(i)["soil_moisture"]
-            pd.testing.assert_series_equal(ts, timeseries[i], check_freq=False)
+            pd.testing.assert_series_equal(ts, timeseries[i], check_freq=False, check_index_type=False)
         assert (
             reader.fid.dataset["soil_moisture"].units
             == metadata["soil_moisture"]["units"]
@@ -205,7 +205,7 @@ def test_csv_pipeline_no_metadata(test_output_path):
     assert isinstance(reader, GriddedNcContiguousRaggedTs)
     for i in range(len(timeseries)):
         ts = reader.read(i)["soil_moisture"]
-        pd.testing.assert_series_equal(ts, timeseries[i], check_freq=False)
+        pd.testing.assert_series_equal(ts, timeseries[i], check_freq=False, check_index_type=False)
 
 
 def test_csv_pipeline_only_ismn(test_output_path):

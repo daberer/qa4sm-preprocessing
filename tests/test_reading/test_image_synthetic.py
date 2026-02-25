@@ -364,7 +364,7 @@ def test_directory_image_reader_no_grid(synthetic_test_args, test_output_path):
 def test_directory_image_reader_averaging(synthetic_test_args, test_output_path):
     ds, kwargs = synthetic_test_args
     newtime = pd.date_range(
-        ds.indexes["time"][0], periods=len(ds.indexes["time"]), freq="12H"
+        ds.indexes["time"][0], periods=len(ds.indexes["time"]), freq="12h"
     )
     ds = ds.assign_coords({"time": newtime})
     write_images(ds, test_output_path / "synthetic", "synthetic")
@@ -385,9 +385,9 @@ def test_directory_image_reader_multiple_timesteps(synthetic_test_args, test_out
     # them again, using the "timestamps" keyword argument
     ds, kwargs = synthetic_test_args
     newtime = pd.date_range(
-        ds.indexes["time"][0], periods=len(ds.indexes["time"]), freq="12H"
+        ds.indexes["time"][0], periods=len(ds.indexes["time"]), freq="12h"
     )
-    newtime += pd.Timedelta("6H")
+    newtime += pd.Timedelta("6h")
     ds = ds.assign_coords({"time": newtime})
     write_images(
         ds, test_output_path / "synthetic", "synthetic", stepsize=2, fmt="%Y%m%d"
@@ -396,7 +396,7 @@ def test_directory_image_reader_multiple_timesteps(synthetic_test_args, test_out
         test_output_path / "synthetic",
         ["X", "Y"],
         fmt="synthetic_%Y%m%d.nc",
-        timestamps=[pd.Timedelta("6H"), pd.Timedelta("18H")],
+        timestamps=[pd.Timedelta("6h"), pd.Timedelta("18h")],
         **kwargs
     )
     ntime = len(reader.timestamps)
@@ -410,9 +410,9 @@ def test_directory_image_reader_multiple_timesteps_transposed(synthetic_test_arg
     # same as multiple_timests test, but now with time as last dimension in the images
     ds, kwargs = synthetic_test_args
     newtime = pd.date_range(
-        ds.indexes["time"][0], periods=len(ds.indexes["time"]), freq="12H"
+        ds.indexes["time"][0], periods=len(ds.indexes["time"]), freq="12h"
     )
-    newtime += pd.Timedelta("6H")
+    newtime += pd.Timedelta("6h")
     ds = ds.assign_coords({"time": newtime})
     ds = ds.transpose(..., "time")
     write_images(
@@ -423,7 +423,7 @@ def test_directory_image_reader_multiple_timesteps_transposed(synthetic_test_arg
         ["X", "Y"],
         fmt="synthetic_%Y%m%d.nc",
         transpose=("time", ...),  # we have to revert the transpose operation
-        timestamps=[pd.Timedelta("6H"), pd.Timedelta("18H")],
+        timestamps=[pd.Timedelta("6h"), pd.Timedelta("18h")],
         **kwargs
     )
     ds = ds.transpose("time", ...)
@@ -446,7 +446,7 @@ def test_directory_image_reader_multiple_timesteps_subset(synthetic_test_args, t
     # with multiple timesteps
     ds, kwargs = synthetic_test_args
     newtime = pd.date_range(
-        ds.indexes["time"][0], periods=len(ds.indexes["time"]), freq="6H"
+        ds.indexes["time"][0], periods=len(ds.indexes["time"]), freq="6h"
     )
     ds = ds.assign_coords(time=newtime)
     _write_multistep_files(ds, test_output_path / "synthetic")
@@ -455,10 +455,10 @@ def test_directory_image_reader_multiple_timesteps_subset(synthetic_test_args, t
         ["X", "Y"],
         fmt="synthetic_%Y%m%d.nc",
         timestamps=[
-            pd.Timedelta("0H"),
-            pd.Timedelta("6H"),
-            pd.Timedelta("12H"),
-            pd.Timedelta("18H"),
+            pd.Timedelta("0h"),
+            pd.Timedelta("6h"),
+            pd.Timedelta("12h"),
+            pd.Timedelta("18h"),
         ],
         **kwargs
     )
@@ -471,7 +471,7 @@ def test_directory_image_reader_multiple_timesteps_subset_notime(synthetic_test_
     # with multiple timesteps
     ds, kwargs = synthetic_test_args
     newtime = pd.date_range(
-        ds.indexes["time"][0], periods=len(ds.indexes["time"]), freq="6H"
+        ds.indexes["time"][0], periods=len(ds.indexes["time"]), freq="6h"
     )
     ds = ds.assign_coords(time=newtime)
     _write_multistep_files(ds, test_output_path / "synthetic", drop_time=True)
@@ -480,10 +480,10 @@ def test_directory_image_reader_multiple_timesteps_subset_notime(synthetic_test_
         ["X", "Y"],
         fmt="synthetic_%Y%m%d.nc",
         timestamps=[
-            pd.Timedelta("0H"),
-            pd.Timedelta("6H"),
-            pd.Timedelta("12H"),
-            pd.Timedelta("18H"),
+            pd.Timedelta("0h"),
+            pd.Timedelta("6h"),
+            pd.Timedelta("12h"),
+            pd.Timedelta("18h"),
         ],
         **kwargs
     )
