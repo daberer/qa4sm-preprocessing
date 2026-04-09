@@ -5,6 +5,10 @@ Changelog
 Unreleased
 ==========
 
+v0.6.3
+======
+- Unpin zarr dependency
+
 v0.6.2
 ======
 - Remove original user upload file
