@@ -4,6 +4,7 @@ Changelog
 
 Unreleased
 ==========
+- Bugfix frm classification
 
 v0.6.3
 ======
