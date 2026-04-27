@@ -109,6 +109,9 @@ class FrmTcaQualification:
         """
 
         ds = self.ds
+        # necessary since temporal sub-windows are introduced in the result netcdf files.
+        if "tsw" in ds.dims:
+            ds = ds.sel(tsw="bulk")  
 
         if (self.var_snr_ci_lower is not None) and (self.var_snr_ci_upper is not None):
             ds['delta_ci'] = ds[self.var_snr_ci_upper] - ds[self.var_snr_ci_lower]
